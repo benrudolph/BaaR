@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  background-color: red;
+}
+
+.panel {
+  text-align: center;
+  font-size: 100px;
+}

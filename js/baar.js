@@ -76,17 +76,23 @@ $(document).ready(function() {
   });
 
   $('.next').click(function(e) {
-    $slides.each(function(index, element) {
-      var currLeft = $(element).offset().left
-      $(element).css('left', currLeft - windowWidth + 'px');
-    });
+
+    if (_.any($slides, function(slide) { return $(slide).offset().left > 0 })) {
+      $slides.each(function(index, element) {
+        var currLeft = $(element).offset().left
+        $(element).css('left', currLeft - windowWidth + 'px');
+      });
+    }
+
   });
 
   $('.prev').click(function(e) {
-    $slides.each(function(index, element) {
-      var currLeft = $(element).offset().left
-      $(element).css('left', currLeft + windowWidth + 'px');
-    });
+    if (_.any($slides, function(slide) { return $(slide).offset().left < 0 })) {
+      $slides.each(function(index, element) {
+        var currLeft = $(element).offset().left
+        $(element).css('left', currLeft + windowWidth + 'px');
+      });
+    }
   });
 
 

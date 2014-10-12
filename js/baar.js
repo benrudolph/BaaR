@@ -7,7 +7,7 @@ $(document).ready(function() {
   var $slides = $('.slide');
   var windowHeight = $(window).height()
   var windowWidth = $(window).width()
-  var colors = [
+  var COLORS = [
     'rgb(0,0,255);',
     'rgb(0,255,0);',
     'rgb(100,0,0);',
@@ -35,9 +35,7 @@ $(document).ready(function() {
   $panel.css('line-height', windowHeight + 'px');
 
 
-
-
-  $container.attr('data-0', 'background-color:' + colors[0]);
+  $container.attr('data-0', 'background-color:' + COLORS[0]);
   $container.css('width', $(document).width() + 'px');
   $container.css('height', $(document).height() + 'px');
 
@@ -48,7 +46,7 @@ $(document).ready(function() {
 
   $panel.each(function(index, element) {
 
-    $container.attr('data-' + (windowHeight * (index + 1)), 'background-color:' + colors[index + 1]);
+    $container.attr('data-' + (windowHeight * (index + 1)), 'background-color:' + COLORS[index + 1]);
   });
 
 
@@ -105,5 +103,8 @@ $(document).ready(function() {
   $panel.each(function(index, element) {
     offsets.push(s.relativeToAbsolute(element, 'top', 'bottom'))
   });
+
+  // Have to declare in js rather than css due to glitch in skrollr library
+  $container.css('overflow-x', 'hidden');
 
 });

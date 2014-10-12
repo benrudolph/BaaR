@@ -1,5 +1,6 @@
 var Baar = {}
 
+
 $(document).ready(function() {
 
   var $panel = $('.panel');
@@ -30,24 +31,33 @@ $(document).ready(function() {
     new buzz.sound("audio/6.mp3"),
   ]);
 
-  $panel.css('height', windowHeight + 'px');
-  $panel.css('width', $(window).width() + 'px');
-  $panel.css('line-height', windowHeight + 'px');
+  Baar.initElements = function () {
+    windowHeight = $(window).height()
+    windowWidth = $(window).width()
+
+    $panel.css('height', windowHeight + 'px');
+    $panel.css('width', windowWidth + 'px');
+    $panel.css('line-height', windowHeight + 'px');
+
+    $container.css('width', $(document).width() + 'px');
+    $container.css('height', $(document).height() + 'px');
+
+    $slides.each(function(index, element) {
+      $(element).css('left', windowWidth * index + 'px');
+    });
+
+    $container.attr('data-0', 'background-color:' + COLORS[0]);
+    $panel.each(function(index, element) {
+      $container.attr('data-' + (windowHeight * (index + 1)), 'background-color:' + COLORS[index + 1]);
+    });
+
+    var s = skrollr.init({
+        forceHeight: false
+    });
+  }
 
 
-  $container.attr('data-0', 'background-color:' + COLORS[0]);
-  $container.css('width', $(document).width() + 'px');
-  $container.css('height', $(document).height() + 'px');
 
-  $slides.each(function(index, element) {
-    $(element).css('left', windowWidth * index + 'px');
-
-  });
-
-  $panel.each(function(index, element) {
-
-    $container.attr('data-' + (windowHeight * (index + 1)), 'background-color:' + COLORS[index + 1]);
-  });
 
 
   var currIndex = 0;
@@ -73,6 +83,10 @@ $(document).ready(function() {
 
   });
 
+  $(window).resize(function(e) {
+    Baar.initElements();
+  });
+
   $('.next').click(function(e) {
 
     if (_.any($slides, function(slide) { return $(slide).offset().left > 0 })) {
@@ -95,10 +109,8 @@ $(document).ready(function() {
 
 
 
+  Baar.initElements();
 
-  var s = skrollr.init({
-      forceHeight: false
-  });
 
   $panel.each(function(index, element) {
     offsets.push(s.relativeToAbsolute(element, 'top', 'bottom'))

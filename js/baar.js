@@ -16,12 +16,17 @@ $(document).ready(function() {
   ]
   var offsets = []
 
-  //var sounds = new buzz.group([
-  //  new buzz.sound("/audio/0.mp3"),
-  //  new buzz.sound("/audio/1.mp3"),
-  //  new buzz.sound("/audio/0.mp3"),
-  //]);
+  var sounds = new buzz.group([
+    new buzz.sound("/audio/0.mp3"),
+    new buzz.sound("/audio/1.mp3"),
+    new buzz.sound("/audio/2.mp3"),
+    new buzz.sound("/audio/3.mp3"),
+    new buzz.sound("/audio/4.mp3"),
+    new buzz.sound("/audio/5.mp3"),
+    new buzz.sound("/audio/6.mp3"),
+  ]);
 
+  console.log(sounds);
   $panel.css('height', windowHeight + 'px');
   $panel.css('width', $(window).width() + 'px');
   $panel.css('line-height', windowHeight + 'px');
@@ -37,6 +42,8 @@ $(document).ready(function() {
   });
 
 
+  var currIndex = 0;
+  sounds.getSounds()[currIndex].play()
 
   $(document).on('scroll', function(e) {
 
@@ -48,6 +55,12 @@ $(document).ready(function() {
         index = i;
         break;
       }
+    }
+
+    if (currIndex !== index) {
+      sounds.getSounds()[currIndex].pause()
+      currIndex = index;
+      sounds.getSounds()[currIndex].play()
     }
 
   });

@@ -17,13 +17,13 @@ $(document).ready(function() {
   var offsets = []
 
   var sounds = new buzz.group([
-    new buzz.sound("/audio/0.mp3"),
-    new buzz.sound("/audio/1.mp3"),
-    new buzz.sound("/audio/2.mp3"),
-    new buzz.sound("/audio/3.mp3"),
-    new buzz.sound("/audio/4.mp3"),
-    new buzz.sound("/audio/5.mp3"),
-    new buzz.sound("/audio/6.mp3"),
+    new buzz.sound("audio/0.mp3"),
+    new buzz.sound("audio/1.mp3"),
+    new buzz.sound("audio/2.mp3"),
+    new buzz.sound("audio/3.mp3"),
+    new buzz.sound("audio/4.mp3"),
+    new buzz.sound("audio/5.mp3"),
+    new buzz.sound("audio/6.mp3"),
   ]);
 
   console.log(sounds);

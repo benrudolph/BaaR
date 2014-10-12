@@ -4,15 +4,19 @@ $(document).ready(function() {
 
   var $panel = $('.panel');
   var $container = $('.container');
+  var $slides = $('.slide');
   var windowHeight = $(window).height()
+  var windowWidth = $(window).width()
   var colors = [
     'rgb(0,0,255);',
     'rgb(0,255,0);',
-    'rgb(20,0,0);',
+    'rgb(100,0,0);',
     'rgb(50,0,255);',
     'rgb(100,255,255);',
     'rgb(0,255,255);',
-    'rgb(0,255,255);'
+    'rgb(0,255,255);',
+    'rgb(100,255,255);',
+    'rgb(50,0,255);',
   ]
   var offsets = []
 
@@ -26,7 +30,6 @@ $(document).ready(function() {
     new buzz.sound("audio/6.mp3"),
   ]);
 
-  console.log(sounds);
   $panel.css('height', windowHeight + 'px');
   $panel.css('width', $(window).width() + 'px');
   $panel.css('line-height', windowHeight + 'px');
@@ -35,6 +38,13 @@ $(document).ready(function() {
 
 
   $container.attr('data-0', 'background-color:' + colors[0]);
+  $container.css('width', $(document).width() + 'px');
+  $container.css('height', $(document).height() + 'px');
+
+  $slides.each(function(index, element) {
+    $(element).css('left', windowWidth * index + 'px');
+
+  });
 
   $panel.each(function(index, element) {
 
@@ -63,6 +73,20 @@ $(document).ready(function() {
       sounds.getSounds()[currIndex].play()
     }
 
+  });
+
+  $('.next').click(function(e) {
+    $slides.each(function(index, element) {
+      var currLeft = $(element).offset().left
+      $(element).css('left', currLeft - windowWidth + 'px');
+    });
+  });
+
+  $('.prev').click(function(e) {
+    $slides.each(function(index, element) {
+      var currLeft = $(element).offset().left
+      $(element).css('left', currLeft + windowWidth + 'px');
+    });
   });
 
 

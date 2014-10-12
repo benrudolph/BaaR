@@ -1,13 +1,39 @@
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 .container {
+  position: relative;
   background-color: red;
 }
 
 .panel {
   text-align: center;
   font-size: 100px;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  -moz-transition:left .3s;
+  -webkit-transition:left .3s;
+  -o-transition:left .3s;
+  transition:left .3s;
+}
+
+.control {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  cursor: pointer;
+  z-index: 100;
+}
+.next {
+  right: 0;
+}
+.prev {
+  left: 0;
 }

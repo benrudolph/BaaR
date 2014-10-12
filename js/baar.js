@@ -8,6 +8,8 @@ $(document).ready(function() {
   var $slides = $('.slide');
   var windowHeight = $(window).height()
   var windowWidth = $(window).width()
+  var fadePadding = .75;
+  var EPSILON = 0.001;
   var COLORS = [
     'rgb(0,0,255);',
     'rgb(0,255,0);',
@@ -20,6 +22,7 @@ $(document).ready(function() {
     'rgb(50,0,255);',
   ]
   var offsets = []
+  var s;
 
   var sounds = new buzz.group([
     new buzz.sound("audio/0.mp3"),
@@ -51,7 +54,7 @@ $(document).ready(function() {
       $container.attr('data-' + (windowHeight * (index + 1)), 'background-color:' + COLORS[index + 1]);
     });
 
-    var s = skrollr.init({
+    s = skrollr.init({
         forceHeight: false
     });
   }
@@ -67,6 +70,12 @@ $(document).ready(function() {
 
     var scrollTop = $(window).scrollTop();
     var index = 0;
+    var delta,
+        percentage,
+        currSound,
+        nextSound;
+
+    var fadeOffset = fadePadding * windowHeight
 
     for (var i = 0; i < offsets.length; i ++) {
       if (scrollTop < offsets[i]) {
@@ -75,8 +84,34 @@ $(document).ready(function() {
       }
     }
 
+    if (scrollTop + fadeOffset > offsets[currIndex]) {
+      delta = (scrollTop + fadeOffset) - offsets[currIndex];
+      percentage = 1 - (delta / fadeOffset);
+
+      currSound = sounds.getSounds()[currIndex];
+      nextSound = sounds.getSounds()[currIndex + 1];
+
+      sounds.getSounds()[currIndex].setVolume(100 * percentage);
+      console.log('setting current: ' + 100 * percentage)
+
+
+      if (nextSound) {
+        console.log('setting next: ' + 100 * (1 - percentage))
+        nextSound.play()
+        nextSound.setVolume(100 * (1 - percentage));
+      }
+
+      if (percentage < EPSILON) {
+        currSound.pause();
+      }
+      if (nextSound && 1 - percentage < EPSILON) {
+        nextSound.pause();
+      }
+    }
+
+
+
     if (currIndex !== index) {
-      sounds.getSounds()[currIndex].pause()
       currIndex = index;
       sounds.getSounds()[currIndex].play()
     }

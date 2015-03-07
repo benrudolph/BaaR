@@ -5,18 +5,65 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Fonts */
+.vollkorn {
+    font-family: 'Vollkorn', serif;
+}
+.open-sans {
+    font-family: 'Open Sans', sans-serif;
+}
+.lato {
+    font-family: 'Lato', sans-serif;
+}
+.abril {
+    font-family: 'Abril Fatface', cursive;
+}
+.mono {
+    font-family: 'PT Mono';
+}
+.playfair {
+    font-family: 'Playfair Display', serif;
+}
+.josefin {
+    font-family: 'Josefin Slab', serif;
+}
+.dosis {
+    font-family: 'Dosis', sans-serif;
+}
+.light {
+    font-weight: 300;
+}
+.normal {
+    font-weight: 400;
+}
+.heavy {
+    font-weight: 700;
+}
+
 h1 {
   font-weight: bold;
 }
 
+
 .container {
   position: relative;
-  background-color: red;
+}
+
+.content {
+  position: relative;
 }
 
 .panel {
   text-align: center;
   font-size: 100px;
+}
+.panel-white {
+    color: white;
 }
 
 .slide {
@@ -30,15 +77,72 @@ h1 {
 
 .control {
   position: fixed;
-  top: 0;
+  top: 50px;
   bottom: 0;
   width: 100px;
   cursor: pointer;
   z-index: 100;
 }
+
+.gone {
+    display: none;
+}
+
+
 .next {
   right: 0;
 }
 .prev {
   left: 0;
+}
+
+nav {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+}
+
+.text-wrapper span, .text-wrapper div {
+    position: relative;
+}
+
+.control-panel {
+    margin: 6px 15px;
+    font-size: 1.2em;
+    float: right;
+    color: black;
+}
+
+.control-panel i {
+    margin: 4px;
+    cursor: pointer;
+}
+
+.control-panel-light {
+    color: white;
+}
+
+.hope .hope {
+    top: -50px;
+    right: -40px;
+}
+.hope .music {
+    bottom: -50px;
+    left: -40px;
+}
+
+.deep .deep {
+    bottom: -130px;
+    border-bottom: 2px solid black;
+}
+
+.joy .music {
+    left: -40px;
+}
+.joy .joy {
+    right: -40px;
+}
 }

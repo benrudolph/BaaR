@@ -6,6 +6,7 @@ $(document).ready(function() {
   var $colorPanels = $('.color-panel');
   var $container = $('.container');
   var $slides = $('.slide');
+  var $down = $('.down');
   var windowHeight = $(window).height()
   var windowWidth = $(window).width()
   var fadePadding = .75;
@@ -48,6 +49,8 @@ $(document).ready(function() {
     $slides.each(function(index, element) {
       $(element).css('left', windowWidth * index + 'px');
     });
+
+    $down.attr('data-' + windowHeight / 2, 'opacity:0');
 
     $container.attr('data-0', 'background-color:' + COLORS[0]);
     $colorPanels.each(function(index, element) {
@@ -139,6 +142,7 @@ $(document).ready(function() {
   }
 
   $(document).on('scroll', Baar.onScroll)
+  $(document).on('touchmove', Baar.onScroll)
 
   $(window).resize(function(e) {
     Baar.initElements();
@@ -170,7 +174,7 @@ $(document).ready(function() {
     }
   });
 
-  $('.fa').hover(
+  $('.control-panel .fa').hover(
       function(e) { $(this).addClass('wobble') },
       function(e) { $(this).removeClass('wobble') }
   )

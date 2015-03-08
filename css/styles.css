@@ -61,6 +61,7 @@ h1 {
 .panel {
   text-align: center;
   font-size: 6em;
+  position: relative;
 }
 .panel-white {
     color: white;
@@ -125,6 +126,14 @@ nav {
     color: white;
 }
 
+.down {
+    font-size: .8em;
+    color: white;
+    position: absolute;
+    bottom: .1em;
+    z-index: 12;
+}
+
 .hope .hope {
     top: -50px;
     right: -40px;
@@ -179,3 +188,5 @@ nav {
         bottom: 0;
     }
 }
+
+

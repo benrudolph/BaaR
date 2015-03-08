@@ -1,8 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
   font-family: 'Open Sans', sans-serif;
+  position: relative;
 }
 
 a {
@@ -60,14 +60,14 @@ h1 {
 
 .panel {
   text-align: center;
-  font-size: 100px;
+  font-size: 6em;
 }
 .panel-white {
     color: white;
 }
 
 .slide {
-  position: absolute;
+  position: relative;
   top: 0;
   -moz-transition:left .3s;
   -webkit-transition:left .3s;
@@ -145,4 +145,37 @@ nav {
 .joy .joy {
     right: -40px;
 }
+
+/* Mobile styles */
+
+@media (max-width: 768px) {
+    .panel {
+        font-size: 4.5em;
+    }
+    .text-wrapper {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .joy .music, .joy .joy {
+        right: 0;
+        left: 0;
+    }
+    .joy span {
+        display: block;
+    }
+
+    .deep .music, .deep .is {
+        font-size: .6em;
+    }
+    .deep .deep {
+        bottom: 0;
+    }
+
+    .hope .hope, .hope .music {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
 }

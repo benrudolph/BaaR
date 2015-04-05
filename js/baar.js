@@ -3,8 +3,7 @@ var Baar = {}
 $(document).ready(function() {
 
   var $panel = $('.panel');
-  var $colorPanels = $('.color-panel');
-  var $container = $('.container');
+  var $containers = $('.container');
   var $slides = $('.slide');
   var $down = $('.down');
   var windowHeight = $(window).height()
@@ -13,27 +12,38 @@ $(document).ready(function() {
   var soundOn = true;
   var EPSILON = 0.001;
   var COLORS = [
+    // Slides
+    [
+    'rgb(240, 240, 240);', // Logo
     'rgb(0, 0, 0);', // Drama
     'rgb(10, 197, 244)', // Hope
     'rgb(43,43,130);', // Joy
     'rgb(145, 146, 152);', // Deep
     'rgb(192, 57, 43)', // Fear
     'rgb(48, 17, 50);', // Love
+    ],
+    [
+    'rgb(43,43,130);', // Joy
+    'rgb(145, 146, 152);', // Deep
+    ]
   ]
   var offsets = []
   var s;
 
+  var opts = { formats: ['ogg', 'mp3'] };
+
   var sounds = new buzz.group([
-    new buzz.sound("audio/drama.ogg"),
-    new buzz.sound("audio/hope.ogg"),
-    new buzz.sound("audio/joy.ogg"),
-    new buzz.sound("audio/deep.ogg"),
-    new buzz.sound("audio/fear.ogg"),
-    new buzz.sound("audio/love.ogg"),
+    new buzz.sound("audio/silence.mp3"), // for no music
+    new buzz.sound("audio/drama", opts),
+    new buzz.sound("audio/hope", opts),
+    new buzz.sound("audio/joy", opts),
+    new buzz.sound("audio/deep", opts),
+    new buzz.sound("audio/fear", opts),
+    new buzz.sound("audio/love", opts),
   ]);
 
   // Which indices are dark enough to switch color of control panel
-  var darkIndices = [0, 1, 2, 5];
+  var darkIndices = [1, 2, 3, 6];
 
   Baar.initElements = function () {
     windowHeight = $(window).height()
@@ -43,8 +53,8 @@ $(document).ready(function() {
     $panel.css('width', windowWidth + 'px');
 
 
-    $container.css('width', $(document).width() + 'px');
-    $container.css('height', $(document).height() + 'px');
+    $containers.css('width', $(document).width() + 'px');
+    $containers.css('height', $(document).height() + 'px');
 
     $slides.each(function(index, element) {
       $(element).css('left', windowWidth * index + 'px');
@@ -52,16 +62,22 @@ $(document).ready(function() {
 
     $down.attr('data-' + windowHeight / 2, 'opacity:0');
 
-    $container.attr('data-0', 'background-color:' + COLORS[0]);
-    $colorPanels.each(function(index, element) {
-        var $wrapper = $(element).find('.text-wrapper');
-        var wrapperHeight = $wrapper.height();
+    $containers.each(function(idx, ele) {
+        var colors = COLORS[idx];
+        var $container = $(ele);
+        var $colorPanels = $container.find('.color-panel');
+        $container.attr('data-0', 'background-color:' + colors[0]);
+        $colorPanels.each(function(index, element) {
+            var $wrapper = $(element).find('.text-wrapper');
+            var wrapperHeight = $wrapper.height();
 
-        if (COLORS[index + 1]) {
-            $container.attr('data-' + (windowHeight * (index + 1)),
-                'background-color:' + COLORS[index + 1]);
-        }
-        $wrapper.css('padding-top', (windowHeight / 2 - wrapperHeight / 2) + 'px');
+            if (colors[index + 1]) {
+                $container.attr('data-' + (windowHeight * (index + 1)),
+                    'background-color:' + colors[index + 1]);
+            }
+            $wrapper.css('padding-top', (windowHeight / 2 - wrapperHeight / 2) + 'px');
+        });
+
     });
 
     Baar.setControlPanelColor(currIndex);
@@ -80,6 +96,9 @@ $(document).ready(function() {
 
 
   Baar.onScroll = function() {
+    // if the slide doesn't have music, don't play any
+    if (!$slides.not('.gone').hasClass('music'))
+        return
     var scrollTop = $(window).scrollTop();
     var index = 0;
     var delta,
@@ -110,7 +129,7 @@ $(document).ready(function() {
       if (nextSound) {
         // console.log('setting next: ' + 100 * (1 - percentage))
         if (soundOn) {
-            nextSound.play()
+            nextSound.play().loop()
             nextSound.setVolume(100 * (1 - percentage));
         }
       }
@@ -121,6 +140,13 @@ $(document).ready(function() {
       if (nextSound && 1 - percentage < EPSILON) {
         nextSound.pause();
       }
+
+      // All other sounds should stop
+      _.each(sounds.getSounds(), function(sound, idx) {
+          if (idx !== currIndex && idx !== currIndex + 1) {
+              sound.pause();
+          }
+      });
     }
 
 
@@ -128,7 +154,7 @@ $(document).ready(function() {
     if (currIndex !== index) {
       currIndex = index;
       if (soundOn) {
-          sounds.getSounds()[currIndex].play()
+          sounds.getSounds()[currIndex].play().loop()
       }
       Baar.setControlPanelColor(currIndex);
     }
@@ -138,7 +164,7 @@ $(document).ready(function() {
 
   var currIndex = 0;
   if (soundOn) {
-      sounds.getSounds()[currIndex].play()
+      sounds.getSounds()[currIndex].play().loop()
   }
 
   $(document).on('scroll', Baar.onScroll)
@@ -160,6 +186,7 @@ $(document).ready(function() {
             $(element).addClass('gone');
         }
       });
+      Baar.onScroll()
     }
 
   });
@@ -171,6 +198,7 @@ $(document).ready(function() {
         var currLeft = $(element).offset().left
         $(element).css('left', currLeft + windowWidth + 'px');
       });
+      Baar.onScroll()
     }
   });
 
@@ -185,7 +213,7 @@ $(document).ready(function() {
       if (soundOn) {
           $el.removeClass('fa-volume-off').addClass('fa-volume-up');
           Baar.onScroll();
-          sounds.getSounds()[currIndex].play()
+          sounds.getSounds()[currIndex].play().loop()
       } else {
           $el.removeClass('fa-volume-up').addClass('fa-volume-off');
           buzz.all().pause()
@@ -200,6 +228,6 @@ $(document).ready(function() {
   });
 
   // Have to declare in js rather than css due to glitch in skrollr library
-  $container.css('overflow-x', 'hidden');
+  $containers.css('overflow-x', 'hidden');
 
 });

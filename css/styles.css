@@ -10,6 +10,10 @@ a {
     text-decoration: none;
 }
 
+ul {
+    list-style: none;
+}
+
 /* Fonts */
 .vollkorn {
     font-family: 'Vollkorn', serif;
@@ -65,6 +69,9 @@ h1 {
 }
 .panel-white {
     color: white;
+}
+.panel-normalized {
+    font-size: 2em;
 }
 
 .slide {
@@ -128,7 +135,7 @@ nav {
 
 .down {
     font-size: .8em;
-    color: white;
+    color: black;
     position: absolute;
     bottom: .1em;
     z-index: 12;

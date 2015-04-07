@@ -12,7 +12,7 @@ $(document).ready(function() {
   var soundOn = true;
   var EPSILON = 0.001;
   var COLORS = [
-    // Slides
+    // per slide
     [
     'rgb(240, 240, 240);', // Logo
     'rgb(0, 0, 0);', // Drama
@@ -22,10 +22,6 @@ $(document).ready(function() {
     'rgb(192, 57, 43)', // Fear
     'rgb(48, 17, 50);', // Love
     ],
-    [
-    'rgb(43,43,130);', // Joy
-    'rgb(145, 146, 152);', // Deep
-    ]
   ]
   var offsets = []
   var s;
@@ -40,6 +36,9 @@ $(document).ready(function() {
     new buzz.sound("audio/deep", opts),
     new buzz.sound("audio/fear", opts),
     new buzz.sound("audio/love", opts),
+    new buzz.sound("audio/silence.mp3"), // for no music
+    new buzz.sound("audio/silence.mp3"), // for no music
+    new buzz.sound("audio/silence.mp3"), // for no music
   ]);
 
   // Which indices are dark enough to switch color of control panel
@@ -174,34 +173,6 @@ $(document).ready(function() {
     Baar.initElements();
   });
 
-  $('.next').click(function(e) {
-
-    $slides.removeClass('gone');
-    if (_.any($slides, function(slide) { return $(slide).offset().left > 0 })) {
-      $slides.each(function(index, element) {
-        var currLeft = $(element).offset().left
-        var newLeft = currLeft - windowWidth;
-        $(element).css('left', newLeft + 'px');
-        if (newLeft !== 0) {
-            $(element).addClass('gone');
-        }
-      });
-      Baar.onScroll()
-    }
-
-  });
-
-  $('.prev').click(function(e) {
-    $slides.removeClass('gone');
-    if (_.any($slides, function(slide) { return $(slide).offset().left < 0 })) {
-      $slides.each(function(index, element) {
-        var currLeft = $(element).offset().left
-        $(element).css('left', currLeft + windowWidth + 'px');
-      });
-      Baar.onScroll()
-    }
-  });
-
   $('.control-panel .fa').hover(
       function(e) { $(this).addClass('wobble') },
       function(e) { $(this).removeClass('wobble') }
@@ -219,6 +190,12 @@ $(document).ready(function() {
           buzz.all().pause()
       }
   })
+
+  $('.control-panel .info').click(function(e) {
+        $('html, body').animate({
+            scrollTop: $("#about").offset().top
+        }, 500);
+  });
 
   Baar.initElements();
 

@@ -14,6 +14,10 @@ ul {
     list-style: none;
 }
 
+.info {
+    color: #c0392b;
+}
+
 /* Fonts */
 .vollkorn {
     font-family: 'Vollkorn', serif;
@@ -133,12 +137,17 @@ nav {
     color: white;
 }
 
-.down {
+.down, .info-down {
     font-size: .8em;
     color: black;
     position: absolute;
     bottom: .1em;
     z-index: 12;
+}
+
+.info-down {
+    font-size: 2em;
+    color: inherit;
 }
 
 .hope .hope {
@@ -160,6 +169,18 @@ nav {
 }
 .joy .joy {
     right: -40px;
+}
+
+footer {
+    text-align: center;
+    background-color: #7f8c8d;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+footer p {
+    margin: 0;
+    font-size: 12px;
+    padding: 3px;
 }
 
 /* Mobile styles */

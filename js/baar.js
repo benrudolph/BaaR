@@ -15,11 +15,11 @@ $(document).ready(function() {
     // per slide
     [
     'rgb(240, 240, 240);', // Logo
-    'rgb(0, 0, 0);', // Drama
-    'rgb(10, 197, 244)', // Hope
-    'rgb(43,43,130);', // Joy
-    'rgb(145, 146, 152);', // Deep
-    'rgb(192, 57, 43)', // Fear
+    'rgb(150, 40, 27);', // Drama
+    'rgb(10, 197, 244);', // Hope
+    'rgb(230, 126, 34);', // Joy
+    'rgb(31, 58, 147);', // Deep
+    'rgb(0, 0, 0);', // Fear
     'rgb(48, 17, 50);', // Love
     ],
   ]
@@ -42,7 +42,7 @@ $(document).ready(function() {
   ]);
 
   // Which indices are dark enough to switch color of control panel
-  var darkIndices = [1, 2, 3, 6];
+  var darkIndices = [1, 2, 4, 5, 6];
 
   Baar.initElements = function () {
     windowHeight = $(window).height()

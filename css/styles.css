@@ -18,6 +18,15 @@ ul {
     color: #c0392b;
 }
 
+.copyright {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    font-size: 11px;
+    padding: 2px 5px;
+    color: #444;
+}
+
 /* Fonts */
 .vollkorn {
     font-family: 'Vollkorn', serif;

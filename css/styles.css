@@ -25,6 +25,17 @@ ul {
     font-size: 11px;
     padding: 2px 5px;
     color: #444;
+    z-index: 10;
+}
+.mobile-warning {
+    position: fixed;
+    top: 0;
+    left: 0;
+    font-size: 11px;
+    padding: 2px 5px;
+    color: #444;
+    z-index: 10;
+    display: none;
 }
 
 /* Fonts */
@@ -239,6 +250,9 @@ iframe {
         left: 0;
         right: 0;
         bottom: 0;
+    }
+    .mobile-warning {
+        display: block;
     }
 }
 

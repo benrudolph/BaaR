@@ -179,6 +179,9 @@ nav {
 .joy .joy {
     right: -40px;
 }
+.baar-logo {
+  width: 400px;
+}
 
 footer {
     text-align: center;
@@ -191,18 +194,31 @@ footer p {
     font-size: 12px;
     padding: 3px;
 }
+iframe {
+    width: 560px;
+    height: 315px;
+}
 
 /* Mobile styles */
 
 @media (max-width: 768px) {
+    iframe {
+        width: 230px;
+        height: 155px;
+    }
     .panel {
         font-size: 4.5em;
+    }
+    .panel.panel-normalized {
+        font-size: 2em;
+    }
+    .baar-logo {
+        width: 270px;
     }
     .text-wrapper {
         padding-left: 40px;
         padding-right: 40px;
     }
-
     .joy .music, .joy .joy {
         right: 0;
         left: 0;
